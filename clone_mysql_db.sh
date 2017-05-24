@@ -1,5 +1,5 @@
 #!/bin/bash
-# author: Pablo Donoso - github.com 
+# author: Pablo Donoso - github.com/juanpablodonoso 
 # Make a clone of a DB stored in another server from mysql dumpfile 
 set -e 
 
@@ -17,7 +17,7 @@ if [ $rsync_command -ne 0 ]; then
         exit 1;
 fi
 
-# check if the file exists in directory  
+# check if the file exists in directchristian thibaudeauory  
 if ! [ -e `echo $mysql_dump_file`  ]; then   
         echo "Error: The dump file $mysql_dump_file does not exist."; 
         exit 1;
@@ -25,8 +25,7 @@ fi
 
 # create MySQL database in remote machine
 echo "--> Creating the database"
-echo "--> Insert the user MySQL password"
-read mysql_password
-mysql -u root --password="$mysql_password"  -e "create database 'contactos';"
-mysql -u root --password="$mysql_password" -e "quit"
-mysql -u root --password="$mysql_password" contactos < echo `$mysql_dump_file`
+read -p "Insert the yser MySQL password" mysql_password
+mysql -u root --password="$mysql_password"  -e "create database 'contactos'; use contactos;"; 
+mysql -u root --password="$mysql_password" contactos < echo $mysql_dump_file
+mysql -u root --password="$mysql_password" -e "use database contactos; show contactos;"; 
